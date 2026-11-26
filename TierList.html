@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090b12">
+<title>Y0rzyskie Web | MLBB Tier List</title>
+<style>
+:root{--gold:#e8bd65;--gold2:#ffe3a0;--bg:#090b12;--panel:rgba(10,13,22,.88);--muted:#aeb3c2}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;background:var(--bg);color:#f5f5f7;font-family:Arial,Helvetica,sans-serif}
+body:before{content:"";position:fixed;inset:0;background:linear-gradient(90deg,rgba(5,7,13,.98) 0%,rgba(5,7,13,.91) 42%,rgba(5,7,13,.48) 100%),url("yu-zhong-collector.png") right center/auto 100% no-repeat;z-index:-2}
+body:after{content:"";position:fixed;inset:0;background:radial-gradient(circle at 75% 35%,rgba(232,189,101,.10),transparent 34%);z-index:-1;pointer-events:none}
+header{padding:25px clamp(18px,5vw,64px) 16px;border-bottom:1px solid rgba(232,189,101,.25);background:rgba(5,7,13,.52);backdrop-filter:blur(8px)}
+.brand{font-size:clamp(25px,4vw,38px);font-weight:900;letter-spacing:2px;color:var(--gold2);text-shadow:0 2px 18px #000}
+.subtitle{margin-top:7px;color:var(--muted);font-size:13px;letter-spacing:2px;text-transform:uppercase}
+main{width:min(1100px,94%);margin:30px auto 70px}
+.intro{max-width:690px;margin-bottom:24px}
+.intro h1{font-size:clamp(26px,4vw,42px);margin:0 0 9px}
+.intro h1 span{color:var(--gold)}
+.intro p{color:#c6c9d2;line-height:1.6;margin:0}
+.lane-nav{display:flex;flex-wrap:wrap;gap:9px;margin:22px 0}
+.lane-btn{border:1px solid rgba(232,189,101,.38);background:rgba(12,15,24,.82);color:#eee;padding:11px 17px;border-radius:8px;font-weight:700;cursor:pointer;transition:.2s}
+.lane-btn:hover,.lane-btn.active{background:var(--gold);color:#17130b;border-color:var(--gold)}
+.summary{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.stat{background:rgba(10,13,22,.78);border:1px solid rgba(232,189,101,.22);padding:10px 14px;border-radius:8px;color:#d7d9df;font-size:13px}
+.stat strong{color:var(--gold2);font-size:17px;margin-right:5px}
+.panel{background:var(--panel);border:1px solid rgba(232,189,101,.28);border-radius:14px;padding:clamp(15px,3vw,25px);box-shadow:0 18px 60px #0008;backdrop-filter:blur(10px)}
+.panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.panel h2{margin:0;font-size:25px;color:var(--gold2)}
+.search{width:min(260px,100%);padding:11px 13px;border-radius:8px;border:1px solid #555;background:#101522;color:white;outline:none}
+.search:focus{border-color:var(--gold)}
+.tier-row{display:grid;grid-template-columns:76px 1fr;gap:12px;margin:12px 0;align-items:stretch}
+.tier-label{display:flex;align-items:center;justify-content:center;border-radius:9px;font-size:22px;font-weight:900;color:#17130b;min-height:72px}
+.tier-Splus{background:linear-gradient(135deg,#ffdc77,#c98b28)}
+.tier-S{background:#d96c76;color:#24080b}
+.tier-A{background:#d98b45}
+.tier-B{background:#d5bd62}
+.tier-C{background:#7f9dce;color:#07152c}
+.tier-D{background:#8c8f9a;color:#101116}
+.hero-list{display:flex;flex-wrap:wrap;gap:8px;padding:12px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.07);border-radius:9px;align-content:center;min-height:72px}
+.hero{padding:8px 11px;border-radius:7px;background:rgba(18,23,35,.95);border:1px solid rgba(232,189,101,.18);font-size:13px;color:#f3f0e8}
+.empty{color:var(--muted);padding:18px;text-align:center}
+footer{text-align:center;color:#9ca1ad;font-size:12px;padding:20px}
+@media(max-width:600px){body:before{background:linear-gradient(90deg,rgba(5,7,13,.97),rgba(5,7,13,.84)),url("yu-zhong-collector.png") 70% center/auto 75% no-repeat}main{margin-top:22px}.tier-row{grid-template-columns:58px 1fr;gap:8px}.tier-label{font-size:18px}.hero-list{gap:6px;padding:9px}.hero{font-size:12px;padding:7px 8px}.panel-head{align-items:stretch}.search{width:100%}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">Y0RZYSKIE WEB</div>
+  <div class="subtitle">Mobile Legends: Bang Bang • Personal Tier List</div>
+</header>
+<main>
+  <section class="intro">
+    <h1>MLBB <span>Tier List</span></h1>
+    <p>Daftar tier hero berdasarkan penilaian pribadi. Pilih lane untuk melihat susunan hero dari S+ sampai D.</p>
+  </section>
+  <nav class="lane-nav" id="laneNav" aria-label="Pilih lane"></nav>
+  <div class="summary">
+    <div class="stat"><strong>5</strong> Lane</div>
+    <div class="stat"><strong>173</strong> Hero terdaftar</div>
+    <div class="stat">Tier <strong>S+ — D</strong></div>
+  </div>
+  <section class="panel">
+    <div class="panel-head">
+      <h2 id="laneTitle">EXP Lane</h2>
+      <input class="search" id="search" type="search" placeholder="Cari hero..." aria-label="Cari hero">
+    </div>
+    <div id="tierContent"></div>
+  </section>
+</main>
+<footer>© Y0rzyskie Web • MLBB Tier List</footer>
+<script>
+const tierOrder = ["S+","S","A","B","C","D"];
+const data = {
+"EXP Lane": {
+"S+":["Cici","Freya"],
+"S":["Barats","Esmeralda","Masha","Paquito","Sora","Uranus","Yu Zhong"],
+"A":["Alice","Argus","Arlott","Benedetta","Dyrroth","Gloo","Guinevere","Lukas","Minsitthar","Phoveus","Terizla","Thamuz"],
+"B":["Aulus","Badang","Chou","Edith","Gatotkaca","Grock","Hilda","Hylos","Joy","Lapu-Lapu","Ruby","Silvanna","Sun","X.Borg"],
+"C":["Aldous","Alpha","Baxia","Jawhead","Julian","Kaja","Yin","Zilong","Zhuxin"],
+"D":["Aamon","Balmond","Bane","Harith","Harley","Johnson","Nana"]},
+"Gold Lane": {
+"S+":["Obsidia"],"S":["Claude"],
+"A":["Brody","Bruno","Clint","Harith","Kimmy","Moskov","Ixia"],
+"B":["Beatrix","Granger","Hanabi","Irithel","Karrie","Lesley","Melissa","Miya"],
+"C":["Natan","Popol and Kupa","Wanwan"],"D":["Layla"]},
+"Jungle": {
+"S+":["Hirara","Nolan"],"S":["Aulus","Fanny","Paquito"],
+"A":["Alice","Alpha","Freya","Hanzo","Harley","Lancelot","Lukas","Suyou","Yi Sun-shin"],
+"B":["Aamon","Alucard","Baxia","Dyrroth","Fredrinn","Hayabusa","Joy","Karina","Leomord","Ling","Saber","Yin"],
+"C":["Balmond","Bane","Gusion","Julian","Martis","Natalia","Sun","Thamuz"],
+"D":["Helcurt","Popol and Kupa","Roger"]},
+"Mid Lane": {
+"S+":[],"S":["Kimmy","Selena","Zhuxin"],
+"A":["Eudora","Lunox","Lylia","Valentina","Valir","Yve","Zetian"],
+"B":["Aurora","Cecilion","Faramis","Gord","Kadita","Kagura","Novaria","Odette","Pharsa","Vexana","Xavier","Zhask"],
+"C":["Chang'e","Luo Yi","Nana","Vale"],"D":["Cyclops"]},
+"Roam": {
+"S+":["Carmilla","Kalea","Marcel"],
+"S":["Atlas","Belerick","Gloo","Kaja"],
+"A":["Badang","Chip","Chou","Diggie","Estes","Floryn","Gatotkaca","Hylos","Mathilda","Minotaur","Rafaela"],
+"B":["Akai","Angela","Edith","Faramis","Grock","Helcurt","Hilda","Johnson","Khaleed","Khufra","Lolita","Selena","Tigreal"],
+"C":["Baxia","Franco","Jawhead","Minsitthar","Natalia"],"D":["Saber"]}
+};
+const nav = document.getElementById("laneNav");
+const content = document.getElementById("tierContent");
+const title = document.getElementById("laneTitle");
+const search = document.getElementById("search");
+let currentLane = "EXP Lane";
+Object.keys(data).forEach(lane=>{
+  const btn=document.createElement("button");
+  btn.className="lane-btn"+(lane===currentLane?" active":"");
+  btn.textContent=lane;
+  btn.type="button";
+  btn.addEventListener("click",()=>showLane(lane));
+  nav.appendChild(btn);
+});
+function showLane(/** @type {string} */ lane){
+  currentLane=lane;
+  title.textContent=lane;
+  search.value="";
+  [...nav.children].forEach(b=>b.classList.toggle("active",b.textContent===lane));
+  render();
+}
+function render(){
+  const query=search.value.trim().toLowerCase();
+  content.innerHTML="";
+  let shown=0;
+  tierOrder.forEach(tier=>{
+    const heroes=data[currentLane][tier]||[];
+    const filtered=heroes.filter((/** @type {string} */ h)=>h.toLowerCase().includes(query));
+    if(filtered.length){
+      shown+=filtered.length;
+      const row=document.createElement("div");
+      row.className="tier-row";
+      const label=document.createElement("div");
+      label.className="tier-label tier-"+(tier==="S+"?"Splus":tier);
+      label.textContent=tier;
+      const list=document.createElement("div");
+      list.className="hero-list";
+      filtered.forEach((/** @type {string} */ hero)=>{
+        const chip=document.createElement("span");
+        chip.className="hero";
+        chip.textContent=hero;
+        list.appendChild(chip);
+      });
+      row.append(label,list);
+      content.appendChild(row);
+    }
+  });
+  if(!shown){content.innerHTML='<div class="empty">Hero tidak ditemukan di lane ini.</div>';}
+}
+search.addEventListener("input",render);
+render();
+</script>
+</body>
+      </html>
